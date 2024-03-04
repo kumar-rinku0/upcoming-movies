@@ -1,0 +1,101 @@
+@import url('https://fonts.googleapis.com/css2?family=Protest+Revolution&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+#heading {
+    font-size: 3rem;
+    padding: 5vmin;
+}
+
+.box {
+    height: 20rem;
+    width: 18rem;
+    border: 0.1vmin solid #fbe8e8;
+    border-radius: 2vmin;
+    text-align: center;
+    display: flex;
+    background-color: lavender;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-direction: column;
+}
+.fit-img {
+    height: 12rem;
+    width: 8rem;
+    object-fit: contain;
+}
+
+.movie-tital {
+    font-size: 1.3rem;
+}
+
+.small-font {
+    font-size: 1rem;
+}
+
+.hide {
+    display: none;
+}
+
+.page {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 5vmin;
+}
+
+.refresh:hover {
+    background-color: #b6b9d1;
+    color: black;
+}
+
+.refresh {
+	font-size: 1rem;
+    margin-top: 5vmin;
+    margin-bottom: 5vmin;
+    height: 3rem;
+    width: 5rem;
+    border: none;
+    background-color: #394073;
+    color: white;
+    border-radius: 5rem;
+    cursor: pointer;
+}
+
+.module {
+    width: 180vmin;
+    height: auto;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: center;
+}
+
+.container {
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.main-container {
+    height: auto;
+    width: 100%;
+    display: flex;
+    text-align: center;
+    flex-direction: column;
+    /* align-content: center; */
+    justify-content: center;
+    align-items: center;
+}
+
+body, button {
+    font-family: "Protest Revolution", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
