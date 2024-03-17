@@ -3,14 +3,20 @@ const refresh = document.querySelectorAll(".refresh");
 let count = 1;
 
 const createMoviesTital = (movie, div) => {
+    const newDiv = document.createElement("div");
     const tgh3 = document.createElement("h4");
-    div.append(tgh3);
+    const pera = document.createElement("p");
+    newDiv.append(tgh3);
+    newDiv.append(pera);
+    div.append(newDiv);
     tgh3.setAttribute("class", "movie-tital");
+    pera.setAttribute("class", "small-font");
     tgh3.innerText = movie.title;
+    pera.innerText = `release on ${movie.releaseDate}`;
 }
 
-const createMoviesImg = (movie, div) => {
 
+const createMoviesImg = (movie, div) => {
     if (movie.image != null) {
         const img = document.createElement("img");
         img.setAttribute("class", "fit-img");
@@ -19,12 +25,6 @@ const createMoviesImg = (movie, div) => {
     }
 }
 
-const createReleaseDate = (movie, div) => {
-    const pera = document.createElement("p");
-    pera.setAttribute("class", "small-font");
-    div.append(pera);
-    pera.innerText = `release on ${movie.releaseDate}`;
-}
 
 const createLoader = () => {
     const p = document.createElement("p");
@@ -52,9 +52,8 @@ const showMovies = (movies) => {
         const div = document.createElement("div");
         module.append(div);
         div.setAttribute("class", "box");
-        createMoviesTital(movies[i], div);
         createMoviesImg(movies[i], div);
-        createReleaseDate(movies[i], div);
+        createMoviesTital(movies[i], div);
         boxClick(movies[i], div);
     }
 }
@@ -85,6 +84,7 @@ const fetchReq = async () => {
         removeLoader(p);
         setPrevHide();
         showMovies(result.trailers);
+        console.log(result.trailers);
 
     } catch (err) {
         console.log(err);
@@ -93,7 +93,7 @@ const fetchReq = async () => {
 
 const boxClick = (movie, module) => {
     module.addEventListener("click", () => {
-        open(`${movie.videoLink}`);
+        open(`${movie.videoLink}`, "_self");
     })
 }
 
