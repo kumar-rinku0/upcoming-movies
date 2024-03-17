@@ -12,6 +12,7 @@ const createMoviesTital = (movie, div) => {
     tgh3.setAttribute("class", "movie-tital");
     pera.setAttribute("class", "small-font");
     tgh3.innerText = movie.title;
+    if(movie.releaseDate != "")
     pera.innerText = `release on ${movie.releaseDate}`;
 }
 
