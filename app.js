@@ -1,6 +1,8 @@
 const module = document.querySelector(".module");
 const refresh = document.querySelectorAll(".refresh");
 let count = 1;
+let start = 0;
+let limit = 10;
 
 const createMoviesTital = (movie, div) => {
     const newDiv = document.createElement("div");
@@ -49,7 +51,7 @@ const removeLoader = (p) => {
 }
 
 const showMovies = (movies) => {
-    for (let i = 0; i< movies.length; i++) {
+    for (let i = start; i< start+limit && i<movies.length; i++) {
         const div = document.createElement("div");
         module.append(div);
         div.setAttribute("class", "box");
@@ -85,7 +87,6 @@ const fetchReq = async () => {
         removeLoader(p);
         setPrevHide();
         showMovies(result.trailers);
-        console.log(result.trailers);
 
     } catch (err) {
         console.log(err);
@@ -106,11 +107,16 @@ const refreshclick = () => {
                 box.remove();
             })
             const id = ref.getAttribute("id");
-            id === "plus" ? count++ : count++;
+            id === "plus" ? count++ : count--;
+            if(id == "plus") {
+                start += limit;
+            } else {
+                start -= limit;
+            }
             fetchReq();
         });
     })
 }
 
 fetchReq();
-// refreshclick();
+refreshclick();
