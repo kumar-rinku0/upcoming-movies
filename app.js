@@ -61,12 +61,19 @@ const showMovies = (movies) => {
     }
 }
 
-const setPrevHide = () => {
+const setPrevOrNextHide = (length) => {
     const minus = document.querySelector("#minus");
     if(count == 1) {
         minus.classList.add("hide");
     } else if(count == 2) {
         minus.classList.remove("hide");
+    }
+    const plus = document.querySelector("#plus");
+    let countlimit = (count)*limit;
+    if(countlimit > length) {
+        plus.classList.add("hide");
+    } else {
+        plus.classList.remove("hide");
     }
 }
 
@@ -85,7 +92,7 @@ const fetchReq = async () => {
         console.log(response.status);
         const result = await response.json();
         removeLoader(p);
-        setPrevHide();
+        setPrevOrNextHide(result.trailers.length);
         showMovies(result.trailers);
 
     } catch (err) {
