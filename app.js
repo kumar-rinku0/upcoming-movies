@@ -6,16 +6,16 @@ const createMoviesTital = (movie, div) => {
     const tgh3 = document.createElement("h4");
     div.append(tgh3);
     tgh3.setAttribute("class", "movie-tital");
-    tgh3.innerText = movie["titleText"]["text"];
+    tgh3.innerText = movie.title;
 }
 
 const createMoviesImg = (movie, div) => {
 
-    if (movie["primaryImage"] != null) {
+    if (movie.image != null) {
         const img = document.createElement("img");
         img.setAttribute("class", "fit-img");
         div.append(img);
-        img.setAttribute("src", `${movie["primaryImage"]["url"]}`);
+        img.setAttribute("src", `${movie.image}`);
     }
 }
 
@@ -23,7 +23,7 @@ const createReleaseDate = (movie, div) => {
     const pera = document.createElement("p");
     pera.setAttribute("class", "small-font");
     div.append(pera);
-    pera.innerText = `release on ${movie["releaseDate"]["day"]} : ${movie["releaseDate"]["month"]} : ${movie["releaseDate"]["year"]}`;
+    pera.innerText = `release on ${movie.releaseDate}`;
 }
 
 const createLoader = () => {
@@ -48,13 +48,14 @@ const removeLoader = (p) => {
 }
 
 const showMovies = (movies) => {
-    for (let i = 0; i < movies.length; i++) {
+    for (let i = 0; i< movies.length; i++) {
         const div = document.createElement("div");
         module.append(div);
         div.setAttribute("class", "box");
         createMoviesTital(movies[i], div);
         createMoviesImg(movies[i], div);
         createReleaseDate(movies[i], div);
+        boxClick(movies[i], div);
     }
 }
 
@@ -68,12 +69,12 @@ const setPrevHide = () => {
 }
 
 const fetchReq = async () => {
-    const url = `https://moviesdatabase.p.rapidapi.com/titles/x/upcoming?page=${count}`;
+    const url = `https://moviesverse1.p.rapidapi.com/get-trending-trailers`;
     const options = {
         method: 'GET',
         headers: {
             'X-RapidAPI-Key': '8fd61c192emshb1fac7beb8b6214p14172bjsn2d3ae8bb6896',
-            'X-RapidAPI-Host': 'moviesdatabase.p.rapidapi.com'
+		    'X-RapidAPI-Host': 'moviesverse1.p.rapidapi.com'
         }
     };
     const p = createLoader();
@@ -83,11 +84,17 @@ const fetchReq = async () => {
         const result = await response.json();
         removeLoader(p);
         setPrevHide();
-        showMovies(result["results"]);
+        showMovies(result.trailers);
 
     } catch (err) {
         console.log(err);
     }
+}
+
+const boxClick = (movie, module) => {
+    module.addEventListener("click", () => {
+        open(`${movie.videoLink}`);
+    })
 }
 
 const refreshclick = () => {
@@ -98,11 +105,11 @@ const refreshclick = () => {
                 box.remove();
             })
             const id = ref.getAttribute("id");
-            id === "plus" ? count++ : count--;
+            id === "plus" ? count++ : count++;
             fetchReq();
         });
     })
 }
 
 fetchReq();
-refreshclick();
+// refreshclick();
